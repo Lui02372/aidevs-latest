@@ -1,0 +1,42 @@
+# 06_llm-agent-mini-project 공통 설치 파일입니다.
+#
+# 사용 예시:
+#   cd C:\aidev\06_llm-agent-mini-project
+#   python -m venv .venv
+#   .\.venv\Scripts\Activate.ps1
+#   python -m pip install --upgrade pip
+#   pip install -r requirements.txt
+
+# FastAPI backend starter에서 사용합니다.
+fastapi
+uvicorn[standard]
+
+# OpenAI API를 선택적으로 호출할 때 사용합니다.
+openai
+
+# .env 파일에서 OPENAI_API_KEY, OPENAI_MODEL 같은 환경 변수를 읽을 때 사용합니다.
+python-dotenv
+
+# 외부 API를 Tool처럼 연결하거나 backend/frontend 호출 테스트에 사용합니다.
+httpx
+requests
+
+# Agent State, Tool 입력값, Tool 출력값 같은 데이터 구조를 검증할 때 사용합니다.
+pydantic
+
+# Agent 실행 흐름을 State, Node, Edge 기반 그래프로 구성할 때 사용합니다.
+langgraph
+
+# Prompt, Tool, 모델 호출 구조를 프로젝트에 선택 적용할 때 사용합니다.
+langchain
+langchain-openai
+langchain-core
+
+# Agent 실행 결과를 간단한 웹 화면으로 보여줄 때 사용합니다.
+streamlit
+
+# backend 테스트 starter에서 사용합니다.
+pytest
+
+# 선택 확장입니다. 장기 기억 또는 RAG 저장소를 붙일 때 사용할 수 있습니다.
+psycopg[binary]

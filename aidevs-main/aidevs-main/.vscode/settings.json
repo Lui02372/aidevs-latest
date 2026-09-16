@@ -1,0 +1,45 @@
+{
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell (venv)": {
+      "source": "PowerShell",
+      "args": [
+        "-NoExit",
+        "-Command",
+        "$dir = (Get-Location).Path; while ($dir) { $activate = Join-Path $dir '.venv\\Scripts\\Activate.ps1'; if (Test-Path $activate) { & $activate; break }; $parent = Split-Path $dir -Parent; if ($parent -eq $dir) { break }; $dir = $parent }"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell (venv)",
+  "python-envs.pythonProjects": [
+    {
+      "path": "02_supabase-ai-backend",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    },
+    {
+      "path": "03_supabase-ai-frontend",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    },
+    {
+      "path": "07_multi-agent-service-ops",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    },
+    {
+      "path": "05_llm-agent-orchestration",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    },
+    {
+      "path": "01_python-git-foundation",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ],
+  "python.analysis.extraPaths": [
+    "./05_llm-agent-orchestration/02_prompt-and-response-quality/02_structured-output-json/02_structured-output-",
+    "./02_supabase-ai-backend/01_fastapi-backend/01_fastapi-project-setup/01_hello-"
+  ]
+}

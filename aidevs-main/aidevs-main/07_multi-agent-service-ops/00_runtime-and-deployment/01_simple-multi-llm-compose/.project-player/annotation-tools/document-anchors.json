@@ -1,0 +1,672 @@
+[
+  {
+    "path": "frontend/app.py",
+    "needle": "with st.sidebar:",
+    "line": 53
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with chat_tab:",
+    "line": 77
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with note_tab:",
+    "line": 105
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with status_tab:",
+    "line": 121
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def _prompt(",
+    "line": 187
+  },
+  {
+    "path": "backend/Dockerfile",
+    "needle": "FROM python:",
+    "line": 2
+  },
+  {
+    "path": "frontend/Dockerfile",
+    "needle": "FROM python:",
+    "line": 2
+  },
+  {
+    "path": "backend/requirements.txt",
+    "needle": "fastapi>=",
+    "line": 2
+  },
+  {
+    "path": "frontend/requirements.txt",
+    "needle": "streamlit>=",
+    "line": 2
+  },
+  {
+    "path": "frontend/requirements.txt",
+    "needle": "httpx>=",
+    "line": 4
+  },
+  {
+    "path": "init_database.py",
+    "needle": "import psycopg",
+    "line": 18
+  },
+  {
+    "path": "init_database.py",
+    "needle": "from dotenv import load_dotenv",
+    "line": 19
+  },
+  {
+    "path": "backend/Dockerfile",
+    "needle": "COPY requirements",
+    "line": 6
+  },
+  {
+    "path": "backend/Dockerfile",
+    "needle": "CMD",
+    "line": 12
+  },
+  {
+    "path": "frontend/Dockerfile",
+    "needle": "CMD",
+    "line": 12
+  },
+  {
+    "path": "compose.yml",
+    "needle": "build: ./backend",
+    "line": 10
+  },
+  {
+    "path": "compose.yml",
+    "needle": "REDIS_URL:",
+    "line": 13
+  },
+  {
+    "path": "compose.yml",
+    "needle": "- \"80:8501\"",
+    "line": 54
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "services:",
+    "line": 5
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "REDIS_URL:",
+    "line": 59
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "- \"8501:8501\"",
+    "line": 99
+  },
+  {
+    "path": "compose.release.yml",
+    "needle": "image: ${BACKEND_IMAGE",
+    "line": 11
+  },
+  {
+    "path": "compose.release.yml",
+    "needle": "image: ${FRONTEND_IMAGE",
+    "line": 50
+  },
+  {
+    "path": "compose.release.yml",
+    "needle": "- \"8501:8501\"",
+    "line": 56
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "depends_on:",
+    "line": 77
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "profiles:",
+    "line": 47
+  },
+  {
+    "path": "compose.yml",
+    "needle": "condition: service_healthy",
+    "line": 58
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def configured(",
+    "line": 155
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def model(",
+    "line": 166
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "base_url = os.getenv(",
+    "line": 233
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "self.client = redis.from_url(",
+    "line": 32
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "self.url = url or os.getenv(",
+    "line": 83
+  },
+  {
+    "path": "init_database.py",
+    "needle": "def host_database_url(",
+    "line": 34
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "POSTGRES_USER:",
+    "line": 28
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "BACKEND_URL =",
+    "line": 14
+  },
+  {
+    "path": "init_database.py",
+    "needle": "load_dotenv(ENV_PATH)",
+    "line": 36
+  },
+  {
+    "path": "compose.full-stack.yml",
+    "needle": "- ./database/init.sql:",
+    "line": 35
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "prompt = st.chat_input",
+    "line": 86
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "result = api(\"POST\"",
+    "line": 90
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "def api(",
+    "line": 18
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "@app.post(\"/api/chat\")",
+    "line": 151
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "class ChatRequest",
+    "line": 26
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "RedisDep =",
+    "line": 54
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def chat(",
+    "line": 152
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "if not llm.configured(payload.provider)",
+    "line": 154
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "recent = redis_store.load_session",
+    "line": 159
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def load_session(",
+    "line": 58
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "database.add_chat_message(payload.session_id, \"user\"",
+    "line": 160
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def add_chat_message(",
+    "line": 129
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "reply = llm.reply(",
+    "line": 162
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def reply(",
+    "line": 200
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def _prompt(",
+    "line": 187
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def model(",
+    "line": 166
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "response = OpenAI().responses.create",
+    "line": 220
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "return LLMReply(",
+    "line": 247
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "database.add_chat_message(payload.session_id, \"assistant\"",
+    "line": 170
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "response = gemini_client.models.generate_content",
+    "line": 227
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "response = httpx.post(",
+    "line": 235
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "text = response.json()[\"message\"]",
+    "line": 242
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "detail=f\"Chat 처리 실패:",
+    "line": 179
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "if not text:",
+    "line": 244
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "redis_store.append_session",
+    "line": 171
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def append_session(",
+    "line": 64
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "request_count = redis_store.record_request(payload.message)",
+    "line": 176
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "\"answer\": reply.text",
+    "line": 183
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def record_request(",
+    "line": 44
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "response.raise_for_status()",
+    "line": 22
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "st.write(result[\"answer\"])",
+    "line": 98
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "def show_error(",
+    "line": 27
+  },
+  {
+    "path": "database/init.sql",
+    "needle": "CREATE TABLE IF NOT EXISTS simple_multi_llm.chat_messages",
+    "line": 16
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "history = api(\"GET\"",
+    "line": 79
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def get_chat_history(",
+    "line": 193
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def list_chat(",
+    "line": 138
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "class ChatRequest",
+    "line": 26
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "RedisDep =",
+    "line": 54
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def chat(",
+    "line": 152
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "if not llm.configured(payload.provider)",
+    "line": 154
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def configured(",
+    "line": 155
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "recent = redis_store.load_session",
+    "line": 159
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def add_chat_message(",
+    "line": 129
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def reply(",
+    "line": 200
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "response.raise_for_status()",
+    "line": 241
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "if not text:",
+    "line": 244
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "detail=f\"Chat 처리 실패:",
+    "line": 179
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "database.add_chat_message(payload.session_id, \"assistant\"",
+    "line": 170
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "st.write(result[\"answer\"])",
+    "line": 98
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "def show_error(",
+    "line": 27
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def live(",
+    "line": 61
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def health(",
+    "line": 67
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def ready(",
+    "line": 104
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def create_note(",
+    "line": 115
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def get_notes(",
+    "line": 134
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def get_stats(",
+    "line": 143
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def chat(",
+    "line": 152
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def get_chat_history(",
+    "line": 193
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def reset_current_session(",
+    "line": 202
+  },
+  {
+    "path": "database/init.sql",
+    "needle": "CREATE TABLE IF NOT EXISTS simple_multi_llm.notes",
+    "line": 5
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def add_note(",
+    "line": 107
+  },
+  {
+    "path": "database/init.sql",
+    "needle": "CREATE TABLE IF NOT EXISTS simple_multi_llm.chat_messages",
+    "line": 16
+  },
+  {
+    "path": "database/init.sql",
+    "needle": "CREATE INDEX",
+    "line": 28
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def append_session(",
+    "line": 64
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def record_request(",
+    "line": 44
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "if \"session_id\" not in st.session_state:",
+    "line": 48
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "from __future__",
+    "line": 2
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def __init__(self, url: str",
+    "line": 30
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "class ChatRequest",
+    "line": 26
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "@app.post(\"/api/chat\")",
+    "line": 151
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "@lru_cache",
+    "line": 36
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "RedisDep =",
+    "line": 54
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "@dataclass",
+    "line": 20
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "@staticmethod",
+    "line": 186
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "return [json.loads(item)",
+    "line": 61
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "\"providers\": {name:",
+    "line": 75
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "self.client.rpush(",
+    "line": 69
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "history =",
+    "line": 189
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "with psycopg.connect(self.url) as connection",
+    "line": 91
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "(limit,)",
+    "line": 123
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "detail=f\"PostgreSQL 연결 실패:",
+    "line": 121
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "f\"최근 대화:",
+    "line": 196
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "if ollama_model == \"gemma\"",
+    "line": 176
+  },
+  {
+    "path": "backend/test_app.py",
+    "needle": "app.dependency_overrides[get_redis_store]",
+    "line": 60
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with st.sidebar:",
+    "line": 53
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with st.form(",
+    "line": 106
+  },
+  {
+    "path": "init_database.py",
+    "needle": "if __name__ ==",
+    "line": 75
+  },
+  {
+    "path": "README.md",
+    "needle": "└─ Frontend",
+    "line": 26
+  },
+  {
+    "path": "compose.yml",
+    "needle": "- \"80:8501\"",
+    "line": 54
+  },
+  {
+    "path": "TROUBLESHOOTING.md",
+    "needle": "- Health의",
+    "line": 99
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "\"providers\": {name:",
+    "line": 75
+  },
+  {
+    "path": "backend/app.py",
+    "needle": "def chat(",
+    "line": 152
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "def add_chat_message(",
+    "line": 129
+  },
+  {
+    "path": "guide.md",
+    "needle": "### 선택: 공용 DB 초기화에 필요한 가상환경",
+    "line": 166
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "history = api(\"GET\"",
+    "line": 79
+  },
+  {
+    "path": "frontend/app.py",
+    "needle": "with st.chat_message(\"assistant\")",
+    "line": 97
+  },
+  {
+    "path": "backend/services.py",
+    "needle": "gemini_client =",
+    "line": 226
+  }
+]

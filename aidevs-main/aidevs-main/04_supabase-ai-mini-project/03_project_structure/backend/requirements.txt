@@ -1,0 +1,9 @@
+# 03_project_structure backend 패키지
+fastapi==0.115.6
+uvicorn==0.32.1
+pydantic==2.10.4
+python-dotenv==1.0.1
+supabase==2.10.0
+httpx==0.27.2
+realtime==2.5.3
+redis==5.2.1

@@ -1,0 +1,6 @@
+# 99_final-frontend-project 프론트 개발용 mock backend 패키지
+fastapi==0.115.6
+uvicorn==0.32.1
+pydantic==2.10.4
+pytest==8.4.2
+httpx==0.27.2

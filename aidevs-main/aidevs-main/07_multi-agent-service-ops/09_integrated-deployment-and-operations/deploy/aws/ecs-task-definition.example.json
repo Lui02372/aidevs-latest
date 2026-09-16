@@ -1,0 +1,37 @@
+{
+  "family": "multi-agent-api",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/multi-agent:<IMAGE_TAG>",
+      "command": ["uvicorn", "backend:app", "--app-dir", "08_multi-ai-agent-service", "--host", "0.0.0.0", "--port", "8000"],
+      "portMappings": [{"containerPort": 8000, "protocol": "tcp"}],
+      "secrets": [
+        {"name": "OPENAI_API_KEY", "valueFrom": "<OPENAI_SECRET_ARN>"},
+        {"name": "GEMINI_API_KEY", "valueFrom": "<GEMINI_SECRET_ARN>"},
+        {"name": "DATABASE_URL", "valueFrom": "<DATABASE_SECRET_ARN>"},
+        {"name": "REDIS_URL", "valueFrom": "<REDIS_SECRET_ARN>"}
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/multi-agent-api",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "api"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "python 09_integrated-deployment-and-operations/deploy/healthcheck.py"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 30
+      }
+    }
+  ]
+}

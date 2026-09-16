@@ -1,0 +1,6 @@
+
+"""FastAPI router 모음입니다.
+
+router 파일은 URL과 HTTP Method를 정의하고,
+실제 처리 로직은 services 패키지의 함수에 위임합니다.
+"""

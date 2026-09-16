@@ -1,0 +1,148 @@
+{
+  "captured_at": "2026-09-15T15:23:25.964976+09:00",
+  "git": false,
+  "files": {
+    "README.md": {
+      "sha256": "b9bea9262fc4b22e4075c94d9c1775ac3166d642f70959571b265c41d785d5c9",
+      "bytes": 10610,
+      "lines": 303,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 303
+    },
+    "guide.md": {
+      "sha256": "32ee0589e0084d62770272ba51dce1668ec5d98f07316d1dab33f8e7c018a463",
+      "bytes": 56623,
+      "lines": 941,
+      "encoding": "utf-8",
+      "crlf": 43,
+      "lf": 941
+    },
+    "COMPOSE_EXPLAINED.md": {
+      "sha256": "6c65c17f6f17f6f7063de5376093d79baccfe2de05c49959619fad682e505a9d",
+      "bytes": 3061,
+      "lines": 90,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 90
+    },
+    "TROUBLESHOOTING.md": {
+      "sha256": "bb7a9f190b5ef5c0ff494d4443e531e91d0932bfdfd2428a7ba86ae22e238209",
+      "bytes": 3581,
+      "lines": 131,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 131
+    },
+    "init_database.py": {
+      "sha256": "77eba0d466499695f7bab8b0039ee3b70bdf4fa78048ee86d8a133d146790c86",
+      "bytes": 2099,
+      "lines": 60,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 60
+    },
+    "backend/app.py": {
+      "sha256": "86a8d32034e2b3943fbc66f345a1e04253bb128437ade566c579df8892161a85",
+      "bytes": 5837,
+      "lines": 166,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 166
+    },
+    "backend/services.py": {
+      "sha256": "b7fcf6a9c824f42fc3ac17bf1f12ebc1eaa70cc986db8d7b98ec2342db1ddcf1",
+      "bytes": 7958,
+      "lines": 191,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 191
+    },
+    "backend/test_app.py": {
+      "sha256": "1c60451c2f1b6f96474cfd97a4f285b5432c781cac82a9c80c9ae2e0d58c45c9",
+      "bytes": 2961,
+      "lines": 69,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 69
+    },
+    "frontend/app.py": {
+      "sha256": "56943b37505d1eab2bb54894d7c8bd4e29485855bb6c770821d51870ced00d93",
+      "bytes": 3741,
+      "lines": 94,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 94
+    },
+    "backend/requirements.txt": {
+      "sha256": "b8c7f33e9dd6e1a350c691811435da0c93d1927525744a18a2331acc3fa162e4",
+      "bytes": 121,
+      "lines": 7,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 7
+    },
+    "frontend/requirements.txt": {
+      "sha256": "40ea42a58d51554151a3c70f8478fe281579308940d37116c0d3cfa5b426cdc7",
+      "bytes": 35,
+      "lines": 3,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 3
+    },
+    "backend/Dockerfile": {
+      "sha256": "49968faffbba080bee7dc3d6f54064aa59edaf088a058d5c43e3d6e946f461e3",
+      "bytes": 204,
+      "lines": 7,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 7
+    },
+    "frontend/Dockerfile": {
+      "sha256": "a51858d7894320b49ee56305e3964c754c7e1006045fcf72b52174600ef56e0c",
+      "bytes": 210,
+      "lines": 7,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 7
+    },
+    "compose.yml": {
+      "sha256": "9100b8430d20226e2cdc261eeb990e046c0ae476d6b8c157e5e27717abff17a4",
+      "bytes": 1390,
+      "lines": 40,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 40
+    },
+    "compose.release.yml": {
+      "sha256": "ac3318b5a3b288714c3b86a75f90a2d65e9c5e19230362d80efe8ef086013d53",
+      "bytes": 1643,
+      "lines": 42,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 42
+    },
+    "compose.full-stack.yml": {
+      "sha256": "51585580bca85ba9f1f76fc4e1dd85651fb408f68ed274832f82c6629f7659de",
+      "bytes": 2088,
+      "lines": 75,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 75
+    },
+    "database/init.sql": {
+      "sha256": "0b08fadda3e4d60c7cd9c99d58d0527384c72ee10e0b2fabdaaaabc94dd1ce26",
+      "bytes": 632,
+      "lines": 19,
+      "encoding": "utf-8",
+      "crlf": 0,
+      "lf": 19
+    }
+  },
+  "excluded": [
+    ".env",
+    ".env.example",
+    "debug.log",
+    ".project-player generated records"
+  ]
+}

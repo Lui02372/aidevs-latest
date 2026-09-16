@@ -1,0 +1,24 @@
+# 01_python-git-foundation 공통 패키지 목록
+#
+# 이 파일은 01_python-git-foundation 과정에서 사용하는 공통 .venv에 설치할
+# 최소 패키지를 모아 둔 파일입니다.
+# Python 기초 단원은 표준 라이브러리 중심으로 진행하고,
+# Python 심화 단원의 테스트 실습에서 아래 패키지를 사용합니다.
+#
+# 설치 위치:
+#   C:\aidev\01_python-git-foundation
+#
+# 설치 명령:
+#   python -m pip install --upgrade pip
+#   pip install -r requirements.txt
+
+
+# -----------------------------------------------------------------------------
+# 테스트 패키지
+# -----------------------------------------------------------------------------
+
+# Python 테스트를 작성하고 실행하기 위한 테스트 프레임워크입니다.
+# 사용 위치:
+# - 02_python-advanced/08_testing-code-quality: pytest 기본 사용법, fixture, 예외 테스트
+# - 02_python-advanced/20_assignments: 선택 종합 과제 테스트 실행
+pytest>=8.0.0

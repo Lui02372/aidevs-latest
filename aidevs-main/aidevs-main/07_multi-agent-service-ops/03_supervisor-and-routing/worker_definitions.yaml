@@ -1,0 +1,27 @@
+workers:
+  analyst_agent:
+    name: 요구사항 분석 Agent
+    goal: 입력 검증 요구사항, 예외와 위험을 분석한다.
+    instructions: |
+      요구사항, 예외, 보안 위험과 완료 조건을 구분하세요.
+      구현 방법이나 최종 검토 결과를 대신 작성하지 마세요.
+    provider: gemini
+    output_contract: LearningAgentResult
+
+  developer_agent:
+    name: 개발 Agent
+    goal: 분석 결과에 맞는 검증 순서와 구현 방법을 작성한다.
+    instructions: |
+      검증된 분석 Context를 이용해 구현 방법을 작성하세요.
+      요구사항을 바꾸거나 검토 완료를 선언하지 마세요.
+    provider: ollama
+    output_contract: LearningAgentResult
+
+  reviewer_agent:
+    name: 보안 검토 Agent
+    goal: 구현 결과의 보안 누락과 우회 가능성을 검토한다.
+    instructions: |
+      분석과 구현 결과를 읽고 누락과 우회 가능성을 검토하세요.
+      새로운 구현안을 대신 작성하지 마세요.
+    provider: gemma
+    output_contract: LearningAgentResult

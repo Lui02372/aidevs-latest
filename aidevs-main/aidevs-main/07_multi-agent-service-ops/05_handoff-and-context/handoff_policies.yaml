@@ -1,0 +1,13 @@
+handoff_routes:
+  weather_to_itinerary:
+    from_agent: weather_agent
+    to_agent: itinerary_agent
+    required_context: [destination, days, weather_summary]
+    optional_context: [weather_cautions, transport, food_restriction]
+    max_hops: 3
+  support_to_refund:
+    from_agent: support_agent
+    to_agent: refund_agent
+    required_context: [order_id, issue]
+    optional_context: []
+    max_hops: 2

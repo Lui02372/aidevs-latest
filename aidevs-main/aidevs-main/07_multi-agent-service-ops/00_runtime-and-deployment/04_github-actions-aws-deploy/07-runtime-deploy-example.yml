@@ -1,0 +1,52 @@
+# 시나리오: 03에서 수동 배포를 성공한 EC2에 GitHub Actions가 동일한 배포 명령을 전달한다.
+# 이 파일은 예제이므로 복사 후 Secret·Host Key·Environment 승인을 설정해야 한다.
+name: 07 Runtime Deploy Example
+
+on:
+  # CI 통과 여부를 확인한 운영자가 Actions 화면에서 수동 실행한다.
+  workflow_dispatch:
+
+# 이 Workflow는 소스 Checkout만 하므로 저장소 쓰기 권한을 부여하지 않는다.
+permissions:
+  contents: read
+
+# 동시에 두 배포가 EC2의 같은 Compose Volume을 변경하지 않게 직렬화한다.
+concurrency:
+  group: runtime-ec2-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # GitHub Environment의 승인 규칙과 Environment Secret을 사용한다.
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          AWS_HOST: ${{ secrets.AWS_HOST }}
+          AWS_SSH_KNOWN_HOSTS: ${{ secrets.AWS_SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # ssh-keyscan 결과를 실행 중에 신뢰하지 않는다. 운영자가 확인한 Host Key를 Secret으로 사용한다.
+          printf '%s\n' "$AWS_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      - name: Copy source to EC2
+        env:
+          AWS_HOST: ${{ secrets.AWS_HOST }}
+          AWS_USER: ${{ secrets.AWS_USER }}
+        run: |
+          # EC2의 .env는 이미 03에서 만들어 둔 Secret 파일이므로 복사하거나 출력하지 않는다.
+          ssh "$AWS_USER@$AWS_HOST" 'mkdir -p ~/aidevs-runtime'
+          scp -r 07_multi-agent-service-ops/00_runtime-and-deployment/01_simple-multi-llm-compose "$AWS_USER@$AWS_HOST:~/aidevs-runtime/"
+      - name: Deploy and verify
+        env:
+          AWS_HOST: ${{ secrets.AWS_HOST }}
+          AWS_USER: ${{ secrets.AWS_USER }}
+        run: |
+          # 새 EC2에는 공용 DB·Redis가 없으므로 Full Stack Compose를 실행하고 readiness까지 확인한다.
+          ssh "$AWS_USER@$AWS_HOST" 'cd ~/aidevs-runtime/01_simple-multi-llm-compose && docker compose -f compose.full-stack.yml config --quiet && docker compose -f compose.full-stack.yml up -d --build && curl --fail --retry 12 --retry-delay 5 http://127.0.0.1:8000/health/ready'

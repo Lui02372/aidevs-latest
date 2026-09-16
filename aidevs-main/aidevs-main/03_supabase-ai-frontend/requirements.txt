@@ -1,0 +1,151 @@
+﻿# 03_supabase-ai-frontend 공통 패키지 목록
+#
+# 이 파일은 03_supabase-ai-frontend 전체 과정에서 사용하는 공통 .venv에
+# 설치할 패키지를 모아 둔 파일입니다.
+#
+# 하위 폴더마다 .venv를 따로 만들지 않고,
+# 03_supabase-ai-frontend 폴더의 공통 .venv 하나를 사용합니다.
+#
+# 설치 위치:
+#   C:\aidev\03_supabase-ai-frontend
+#
+# 설치 명령:
+#   python -m pip install --upgrade pip
+#   pip install -r requirements.txt
+#
+# 이 과정의 기본 방향:
+# - Streamlit을 중심으로 AI 서비스 화면을 만듭니다.
+# - FastAPI 백엔드는 02_supabase-ai-backend에서 만든 API를 호출하는 방식으로 연결합니다.
+# - 03_api-integration에는 수업 이해를 돕기 위한 간단한 sample backend가 포함됩니다.
+# - 99_final-frontend-project에는 프론트 개발용 backend_mock과 실제 연결용 backend_service가 포함됩니다.
+# - Supabase service role key, Gemini API key, OpenAI API key 같은 민감한 값은 프론트엔드에 직접 넣지 않습니다.
+# - Docker, Docker Compose, AWS, GitHub Actions 기반 운영 자동화는 07_multi-agent-service-ops에서 본격적으로 다룹니다.
+
+
+# -----------------------------------------------------------------------------
+# Streamlit 프론트엔드 화면 구성 패키지
+# -----------------------------------------------------------------------------
+
+# Python 코드만으로 웹 화면을 빠르게 만들기 위한 UI 프레임워크입니다.
+# 이 과정의 중심 프론트엔드 도구입니다.
+# 사용 위치:
+# - 01_streamlit-basic: Streamlit 실행, 텍스트, 버튼, 입력 컴포넌트 기초
+# - 02_streamlit-ui-components: 입력폼, 선택박스, 파일 업로드, 표와 차트 화면 구성
+# - 05_ai-chatbot-interface: 챗봇 입력 화면과 응답 표시 화면
+# - 04_state-session-and-data: st.session_state 기반 대화 상태 관리
+# - 06_streamlit-multipage-app: st.Page/st.navigation 기반 왼쪽 메뉴 구조
+# - 07_streamlit-tabs-app: st.tabs 기반 탭 구조, tab_pages 파일 분리
+# - 90_ai-assisted-ui-review-and-debugging: Streamlit UI 오류 점검
+# - 99_final-frontend-project: 최종 프론트엔드 solution과 제출물 작성
+streamlit==1.41.1
+
+
+# -----------------------------------------------------------------------------
+# 표, 데이터프레임, 차트 표시 패키지
+# -----------------------------------------------------------------------------
+
+# 표 형태의 데이터를 다루고 화면에 보기 좋게 표시하기 위한 패키지입니다.
+# Streamlit의 st.dataframe, st.table, st.bar_chart 등과 함께 자주 사용합니다.
+# 사용 위치:
+# - 02_streamlit-ui-components: 표와 차트 표시
+# - 04_state-session-and-data: 대화 이력과 사용자 상태 데이터 표시
+# - 06_streamlit-multipage-app: mock 로그와 mock 데이터베이스 테이블 표시
+# - 07_streamlit-tabs-app: 탭 화면 안의 mock 로그와 mock 데이터베이스 테이블 표시
+# - 99_final-frontend-project: 백엔드 응답을 표로 표시하는 최종 화면
+pandas==2.2.3
+
+
+# -----------------------------------------------------------------------------
+# FastAPI 백엔드 호출 패키지
+# -----------------------------------------------------------------------------
+
+# Streamlit 프론트엔드에서 FastAPI 백엔드 API를 호출하기 위한 HTTP 클라이언트입니다.
+# 프론트엔드는 직접 데이터베이스에 접근하기보다 백엔드 API를 호출하는 구조로 학습합니다.
+# 사용 위치:
+# - 03_api-integration: Streamlit에서 sample backend 또는 01 백엔드 API 호출
+# - 05_ai-chatbot-interface: mock 챗봇 API 또는 백엔드 chat API 호출
+# - 04_state-session-and-data: 사용자별 대화 이력, 서비스 로그 API 호출 흐름 이해
+# - 99_final-frontend-project: backend_mock 또는 backend_service의 /health, /auth, /chat, /conversations, /service-logs 호출
+httpx==0.28.1
+
+
+# -----------------------------------------------------------------------------
+# 환경 변수 관리 패키지
+# -----------------------------------------------------------------------------
+
+# .env 파일에 적은 환경 변수를 Python 코드에서 읽어 오기 위한 패키지입니다.
+# 프론트엔드에서는 주로 API_BASE_URL처럼 백엔드 주소를 읽을 때 사용합니다.
+# 사용 위치:
+# - 03_api-integration: API_BASE_URL로 백엔드 주소 관리
+# - 05_ai-chatbot-interface: API_BASE_URL과 챗봇 백엔드 환경 분리
+# - 04_state-session-and-data: API 호출 주소와 실행 환경 분리
+# - 99_final-frontend-project: 최종 프론트엔드 starter에서 API_BASE_URL 읽기
+#
+# 주의:
+# - 프론트엔드 .env에는 공개되어도 되는 설정만 넣습니다.
+# - Supabase service role key, Upstash token, LLM API key는 프론트엔드에 넣지 않습니다.
+python-dotenv==1.0.1
+
+
+# -----------------------------------------------------------------------------
+# 수업용 sample backend 패키지
+# -----------------------------------------------------------------------------
+
+# FastAPI 웹 API 서버를 만들기 위한 핵심 프레임워크입니다.
+# 03 과정의 중심은 프론트엔드지만, API 연동을 이해하기 위해
+# 일부 단원에서 간단한 sample backend를 함께 실행합니다.
+# 사용 위치:
+# - 03_api-integration/sample_backend: Streamlit API 호출 연습용 백엔드
+# - 05_ai-chatbot-interface/00_sample_backend: mock/Gemini 챗봇 API 연습용 백엔드
+# - 99_final-frontend-project/backend_mock: 회원가입, 로그인, 챗봇, 대화 기록, 서비스 로그 제공용 mock backend
+# - 99_final-frontend-project/backend_service: Supabase/Gemini/Upstash 선택 확장 backend
+fastapi==0.115.6
+
+# FastAPI 앱을 로컬 개발 서버로 실행하기 위한 ASGI 서버입니다.
+# 예: uvicorn main:app --reload --host 127.0.0.1 --port 8000
+# 사용 위치:
+# - 03_api-integration/sample_backend 실행
+# - 05_ai-chatbot-interface/00_sample_backend 실행
+# - 99_final-frontend-project/backend_mock 또는 backend_service 실행
+uvicorn==0.32.1
+
+# FastAPI 요청 Body와 응답 구조를 정의하고 검증하는 패키지입니다.
+# 사용자가 입력한 데이터가 API에서 기대하는 구조와 맞는지 확인할 때 사용합니다.
+# 사용 위치:
+# - 03_api-integration/sample_backend: 간단한 요청/응답 모델
+# - 05_ai-chatbot-interface/00_sample_backend: chat 요청/응답 모델
+# - 99_final-frontend-project/backend_mock 또는 backend_service: auth/chat/log 요청/응답 모델
+pydantic==2.10.4
+
+
+# -----------------------------------------------------------------------------
+# 챗봇 샘플 백엔드용 Gemini SDK 패키지
+# -----------------------------------------------------------------------------
+
+# Gemini API를 Python SDK 방식으로 호출하기 위한 Google Gen AI SDK입니다.
+# 이 패키지는 Streamlit 화면에서 직접 사용하지 않습니다.
+# 사용 위치:
+# - 05_ai-chatbot-interface/00_sample_backend: /api/chat/gemini 선택 API
+# - 99_final-frontend-project/backend_service: 실제 Gemini 응답 생성
+#
+# 주의:
+# - GEMINI_API_KEY는 프론트엔드 최상위 .env에 넣지 않습니다.
+# - 04 챗봇 샘플에서는 05_ai-chatbot-interface/00_sample_backend/.env에만 둡니다.
+# - 실제 서비스 구조에서도 Streamlit은 백엔드 API만 호출합니다.
+google-genai==1.2.0
+
+
+# -----------------------------------------------------------------------------
+# 테스트 패키지
+# -----------------------------------------------------------------------------
+
+# 제공용 backend의 API 흐름을 검증하기 위한 테스트 프레임워크입니다.
+# 사용 위치:
+# - 99_final-frontend-project/backend_mock/tests
+# - 99_final-frontend-project/backend_service/tests
+pytest==8.4.2
+
+# session storage, local storage 
+pyarrow==25.0.0
+streamlit-local-storage==0.0.25
+streamlit-browser-session-storage==0.0.12

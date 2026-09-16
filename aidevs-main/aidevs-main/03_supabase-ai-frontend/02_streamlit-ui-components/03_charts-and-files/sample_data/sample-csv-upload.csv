@@ -1,0 +1,9 @@
+id,name,category,quantity,price,created_at
+1,Notebook,stationery,12,3500,2026-07-01
+2,Ballpoint Pen,stationery,30,1200,2026-07-02
+3,Keyboard,electronics,5,45000,2026-07-03
+4,Mouse,electronics,8,23000,2026-07-04
+5,Tumbler,lifestyle,10,18000,2026-07-05
+6,Desk Lamp,lifestyle,4,32000,2026-07-06
+7,USB Cable,electronics,15,9000,2026-07-07
+8,Planner,stationery,9,7800,2026-07-08

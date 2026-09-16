@@ -1,0 +1,12 @@
+﻿.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+.DS_Store
+data/
+
+# VS Code 개인 설정
+.vscode/*
+!.vscode/
+!.vscode/settings.json

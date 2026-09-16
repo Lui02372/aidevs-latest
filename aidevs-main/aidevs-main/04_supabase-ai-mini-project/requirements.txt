@@ -1,0 +1,29 @@
+# 04_supabase-ai-mini-project 공통 패키지 목록
+#
+# 설치:
+#   cd C:\aidev\04_supabase-ai-mini-project
+#   .\.venv\Scripts\Activate.ps1
+#   python -m pip install -r requirements.txt
+
+# FastAPI backend
+fastapi==0.115.6
+uvicorn==0.32.1
+pydantic==2.10.4
+python-dotenv==1.0.1
+
+# Supabase DB
+supabase==2.10.0
+# supabase==2.10.0 requires httpx >=0.26 and <0.28.
+httpx==0.27.2
+# supabase 설치 시 realtime 버전 탐색 시간이 길어질 수 있어 설치 결과 기준으로 고정합니다.
+realtime==2.5.3
+
+# Redis 실시간 이벤트 전달
+redis==5.2.1
+
+# Streamlit frontend
+streamlit==1.41.1
+pandas==2.2.3
+
+# 테스트와 점검
+pytest==8.4.2

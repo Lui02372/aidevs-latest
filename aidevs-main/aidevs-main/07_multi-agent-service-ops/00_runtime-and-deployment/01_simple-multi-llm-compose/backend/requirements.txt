@@ -1,0 +1,14 @@
+# [학습] FastAPI는 요청 검증과 라우팅을 담당한다. >=는 하한 포함, <는 상한 미포함이며 정확한 설치 버전 고정은 아니다.
+fastapi>=0.115,<1
+# [학습] Uvicorn은 Dockerfile에서 app:app을 실행하는 ASGI 서버다.
+uvicorn>=0.34,<1
+# [학습] Redis 클라이언트는 세션 문맥과 요청 통계 명령을 보낸다.
+redis>=5,<9
+# [학습] Psycopg는 PostgreSQL 드라이버다. [binary]는 미리 빌드된 구성요소를 포함하는 선택 의존성이다.
+psycopg[binary]>=3.2,<4
+# [학습] google-genai는 Gemini 분기에서 지연 import하는 SDK다.
+google-genai>=2,<3
+# [학습] openai는 OpenAI 분기의 SDK이며 실제 키 값은 이 명세에 기록하지 않는다.
+openai>=1.68,<3
+# [학습] httpx는 Ollama HTTP 통신에 사용된다. pytest와 초기화 도구용 python-dotenv는 이 명세에 없다.
+httpx>=0.27,<1

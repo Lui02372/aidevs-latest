@@ -1,0 +1,16 @@
+workers:
+  weather_agent:
+    name: 날씨 분석 Agent
+    goal: 여행 기간의 날씨 위험과 준비 사항을 정리한다.
+    provider: gemini
+    output_contract: WeatherResult
+  place_agent:
+    name: 장소 검색 Agent
+    goal: 대중교통으로 방문할 장소와 선택 근거를 작성한다.
+    provider: ollama
+    output_contract: PlaceResult
+  budget_agent:
+    name: 예산 계산 Agent
+    goal: 예산을 항목별로 나누고 합계를 정확히 맞춘다.
+    provider: openai
+    output_contract: BudgetResult

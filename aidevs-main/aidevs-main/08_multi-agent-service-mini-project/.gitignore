@@ -1,0 +1,17 @@
+﻿.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+site-packages/
+.env
+.env.*
+!.env.example
+.vscode/*
+!.vscode/
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp

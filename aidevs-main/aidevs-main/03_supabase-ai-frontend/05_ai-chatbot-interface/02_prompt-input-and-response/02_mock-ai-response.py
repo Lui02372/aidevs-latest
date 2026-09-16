@@ -1,0 +1,21 @@
+﻿import streamlit as st  # Python 코드로 웹 화면을 만들기 위해 Streamlit을 st라는 별칭으로 가져옵니다.
+
+
+def create_mock_reply(prompt):  # 요청 본문으로 받은 데이터를 새 항목으로 저장합니다.
+    return f"임시 응답입니다. 질문 내용을 확인했습니다: {prompt}"  # 함수 실행 결과를 호출한 위치로 돌려줍니다.
+
+
+st.title("임시 AI 응답 생성")  # Streamlit 화면의 가장 큰 제목을 표시합니다.
+
+prompt = st.chat_input("질문을 입력하세요")  # 채팅 입력창에서 사용자가 보낸 질문 문자열을 변수에 저장합니다.
+
+if prompt:  # 사용자가 채팅 입력창에 질문을 입력했을 때만 메시지 처리 로직을 실행합니다.
+    with st.chat_message("user"):  # 파일, 화면 영역, 로딩 상태처럼 시작과 종료가 있는 작업 범위를 만듭니다.
+        st.write(prompt)  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+
+    reply = create_mock_reply(prompt)  # 백엔드 또는 AI 서비스가 만든 응답 문자열을 화면 출력용 변수에 저장합니다.
+
+    with st.chat_message("assistant"):  # 파일, 화면 영역, 로딩 상태처럼 시작과 종료가 있는 작업 범위를 만듭니다.
+        st.write(reply)  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+
+

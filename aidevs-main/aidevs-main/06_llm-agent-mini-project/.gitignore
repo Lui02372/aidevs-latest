@@ -1,0 +1,24 @@
+﻿# Python virtual environments
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Editor and OS files
+.vscode/*
+!.vscode/
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local logs and temporary outputs
+*.log
+*.tmp

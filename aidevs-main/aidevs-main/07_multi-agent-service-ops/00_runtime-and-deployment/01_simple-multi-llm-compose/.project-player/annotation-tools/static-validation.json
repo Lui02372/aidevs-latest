@@ -1,0 +1,160 @@
+{
+  "checked_at": "2026-09-15T15:29:10.883122+09:00",
+  "python": "3.13.14 (pgAdmin bundled, not project container)",
+  "files": {
+    "README.md": {
+      "baseline_hash_ok": true,
+      "unchanged": true,
+      "final_lines": 303
+    },
+    "guide.md": {
+      "baseline_hash_ok": true,
+      "unchanged": true,
+      "final_lines": 941
+    },
+    "COMPOSE_EXPLAINED.md": {
+      "baseline_hash_ok": true,
+      "unchanged": true,
+      "final_lines": 90
+    },
+    "TROUBLESHOOTING.md": {
+      "baseline_hash_ok": true,
+      "unchanged": true,
+      "final_lines": 131
+    },
+    "init_database.py": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 76,
+      "baseline_ast": "pass",
+      "final_ast": "pass",
+      "ast_equal": true,
+      "tokens_equal": true,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 16
+    },
+    "backend/app.py": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 207,
+      "baseline_ast": "pass",
+      "final_ast": "pass",
+      "ast_equal": true,
+      "tokens_equal": true,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 41
+    },
+    "backend/services.py": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 247,
+      "baseline_ast": "pass",
+      "final_ast": "pass",
+      "ast_equal": true,
+      "tokens_equal": true,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 56
+    },
+    "backend/test_app.py": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 90,
+      "baseline_ast": "pass",
+      "final_ast": "pass",
+      "ast_equal": true,
+      "tokens_equal": true,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 21
+    },
+    "frontend/app.py": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 125,
+      "baseline_ast": "pass",
+      "final_ast": "pass",
+      "ast_equal": true,
+      "tokens_equal": true,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 31
+    },
+    "backend/requirements.txt": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 14,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 7
+    },
+    "frontend/requirements.txt": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 5,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 2
+    },
+    "backend/Dockerfile": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 13,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 6
+    },
+    "frontend/Dockerfile": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 13,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 6
+    },
+    "compose.yml": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 60,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 20
+    },
+    "compose.release.yml": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 62,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 20
+    },
+    "compose.full-stack.yml": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 109,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 34
+    },
+    "database/init.sql": {
+      "baseline_hash_ok": true,
+      "unchanged": false,
+      "final_lines": 29,
+      "comment_insertions_only": true,
+      "utf8_lf_preserved": true,
+      "added_lines": 10
+    }
+  },
+  "modules": {
+    "yaml": false,
+    "pytest": false,
+    "fastapi": false,
+    "httpx": false,
+    "streamlit": false,
+    "psycopg": true,
+    "redis": false,
+    "sqlparse": true
+  }
+}

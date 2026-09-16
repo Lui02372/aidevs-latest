@@ -1,0 +1,18 @@
+# 99_final-frontend-project 실제 서비스 backend 패키지
+#
+# 설치:
+#   cd C:\aidev\03_supabase-ai-frontend\99_final-frontend-project\backend_service
+#   C:\aidev\03_supabase-ai-frontend\.venv\Scripts\Activate.ps1
+#   python -m pip install -r requirements.txt
+
+fastapi==0.115.6
+uvicorn==0.32.1
+pydantic==2.10.4
+python-dotenv==1.0.1
+# supabase==2.10.0 requires httpx >=0.26 and <0.28.
+httpx==0.27.2
+google-genai==1.2.0
+supabase==2.10.0
+# supabase 설치 시 realtime 버전 탐색 시간이 길어질 수 있어 설치 결과 기준으로 고정합니다.
+realtime==2.5.3
+pytest==8.4.2

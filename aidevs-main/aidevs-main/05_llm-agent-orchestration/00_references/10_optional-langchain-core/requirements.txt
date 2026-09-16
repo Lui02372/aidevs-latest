@@ -1,0 +1,7 @@
+langchain>=1.0,<2.0
+langchain-google-genai
+langchain-ollama
+langchain-openai
+langgraph>=1.0,<2.0
+python-dotenv
+pydantic

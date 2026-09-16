@@ -1,0 +1,13 @@
+date,service,requests,errors,avg_latency_ms,satisfaction_score
+2026-07-01,chat-api,120,3,240,4.5
+2026-07-01,auth-api,80,1,130,4.7
+2026-07-01,feedback-api,45,0,180,4.2
+2026-07-02,chat-api,150,5,260,4.3
+2026-07-02,auth-api,95,2,145,4.6
+2026-07-02,feedback-api,55,1,190,4.1
+2026-07-03,chat-api,180,4,255,4.4
+2026-07-03,auth-api,110,1,138,4.8
+2026-07-03,feedback-api,70,2,205,4.0
+2026-07-04,chat-api,210,7,285,4.1
+2026-07-04,auth-api,130,2,150,4.6
+2026-07-04,feedback-api,82,1,198,4.3

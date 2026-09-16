@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-09-15T15:29:56.416177+09:00",
+  "checks": [
+    {
+      "url": "http://127.0.0.1:8000/health/live",
+      "http_status": 200,
+      "matches_expected_liveness": true
+    },
+    {
+      "url": "http://127.0.0.1:8000/health/ready",
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:80/_stcore/health",
+      "error_type": "URLError"
+    },
+    {
+      "url": "http://127.0.0.1:8501/_stcore/health",
+      "http_status": 200
+    }
+  ],
+  "body_logged": false
+}

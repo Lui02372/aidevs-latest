@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-09-15T15:43:10.055013+09:00",
+  "files": {
+    "backend/app.py": {
+      "status": "already_annotated",
+      "comments": 41,
+      "sha256": "5948aef5434c47e57f0ebdada282efe0a245bc47bb9dfac34c07950f1c3aa33e"
+    },
+    "backend/services.py": {
+      "status": "already_annotated",
+      "comments": 56,
+      "sha256": "3bce514824b8627cdbc930f4a200c7ff5575cf49660c9cfececf62ad5922edf4"
+    },
+    "frontend/app.py": {
+      "status": "already_annotated",
+      "comments": 31,
+      "sha256": "aceaf9a4cf2cbc8337f1ae5b106ffcc81538cd3ece93c60e36c699299075b75e"
+    },
+    "backend/test_app.py": {
+      "status": "already_annotated",
+      "comments": 21,
+      "sha256": "5fa4cb128f0206c713ebf59a5984ba291fe96319bec9098b65dd8cad28762451"
+    },
+    "init_database.py": {
+      "status": "already_annotated",
+      "comments": 16,
+      "sha256": "b554adb69733d7c110f0cebb14a7864372c7ec58852874952ab972721578a194"
+    },
+    "backend/requirements.txt": {
+      "status": "already_annotated",
+      "comments": 7,
+      "sha256": "6bd76fc88f7aa7e2b34fe56857e13ca31cfcb9bbcf33bac6f4cfce64738f900a"
+    },
+    "frontend/requirements.txt": {
+      "status": "already_annotated",
+      "comments": 2,
+      "sha256": "a4eb3f7fd5cc7c80d44d7f807077f15446a7ba6b7bfc3463465a008058d9035e"
+    },
+    "backend/Dockerfile": {
+      "status": "already_annotated",
+      "comments": 6,
+      "sha256": "6d40892123dbcef1b9c03d52d546447aefb344631dd741f8509dea84677966a7"
+    },
+    "frontend/Dockerfile": {
+      "status": "already_annotated",
+      "comments": 6,
+      "sha256": "4b629614069ff94b6189079622d17cd483640b9b0f850494459f63923e8d61f2"
+    },
+    "database/init.sql": {
+      "status": "already_annotated",
+      "comments": 10,
+      "sha256": "3511d04ed1144c4d28edda9823c7abfecd45c1994e0f3d91aed955e6222e3518"
+    },
+    "compose.yml": {
+      "status": "already_annotated",
+      "comments": 20,
+      "sha256": "24d5131aa30383f3cb9a999acb038cdf6b3b65c10ef4e4d949c42e81843ff950"
+    },
+    "compose.release.yml": {
+      "status": "already_annotated",
+      "comments": 20,
+      "sha256": "1a8c590eb11739fdf977db12dd8440902e39fb8dfe60617fc4a3c51fce93d3b5"
+    },
+    "compose.full-stack.yml": {
+      "status": "already_annotated",
+      "comments": 34,
+      "sha256": "53082081782ae51f6d22fe182ccddbbac89b80f5844f951b4a2c87fdf2dff144"
+    }
+  },
+  "incomplete": []
+}

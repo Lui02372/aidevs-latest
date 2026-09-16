@@ -1,0 +1,23 @@
+# FastAPI는 backend API 서버를 만들 때 사용합니다.
+fastapi>=0.111.0
+
+# uvicorn은 FastAPI 애플리케이션을 실행하는 ASGI 서버입니다.
+uvicorn[standard]>=0.30.0
+
+# Streamlit은 frontend와 monitor 화면을 빠르게 만들 때 사용합니다.
+streamlit>=1.36.0
+
+# httpx는 Python 코드에서 backend API를 호출할 때 사용합니다.
+httpx>=0.27.0
+
+# pydantic은 요청/응답 데이터 구조를 명확하게 정의하고 검증할 때 사용합니다.
+pydantic>=2.7.0
+
+# python-dotenv는 .env 파일의 환경변수를 Python 코드에서 읽을 때 사용합니다.
+python-dotenv>=1.0.0
+
+# pytest는 backend 테스트와 GitHub Actions 자동 검증에 사용합니다.
+pytest>=8.2.0
+
+# requests는 Streamlit 예제에서 간단한 HTTP 호출을 할 때 사용합니다.
+requests>=2.32.0

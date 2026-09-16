@@ -1,0 +1,30 @@
+name: multi-agent-ci-cd
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r 07_multi-agent-service-ops/requirements.txt
+      - run: python -m compileall -q 07_multi-agent-service-ops
+      - run: pytest 07_multi-agent-service-ops/tests -q
+      - run: docker build -f 07_multi-agent-service-ops/09_integrated-deployment-and-operations/deploy/Dockerfile 07_multi-agent-service-ops
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "ECR Push와 ECS 배포 명령은 AWS OIDC 연결 후 추가합니다."

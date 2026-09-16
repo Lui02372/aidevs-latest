@@ -1,0 +1,18 @@
+fastapi
+google-genai
+httpx
+langgraph
+mcp>=1.27,<2
+openai
+ollama
+pgvector
+psycopg[binary]
+pypdf
+pydantic
+python-multipart
+python-dotenv
+redis
+streamlit
+uvicorn
+pytest
+pywin32; sys_platform == "win32"

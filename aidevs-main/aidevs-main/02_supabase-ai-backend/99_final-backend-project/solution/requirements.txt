@@ -1,0 +1,26 @@
+# 99_final-backend-project solution 실행에 필요한 Python 패키지 목록입니다.
+#
+# 설치 위치:
+#   cd C:\aidev\02_supabase-ai-backend
+#   .\.venv\Scripts\Activate.ps1
+#   pip install -r .\99_final-backend-project\solution\requirements.txt
+#
+# 실제 수업에서는 02_supabase-ai-backend의 공통 가상환경을 사용합니다.
+
+# FastAPI 서버를 만들기 위한 핵심 프레임워크입니다.
+fastapi>=0.115.0
+
+# FastAPI 앱을 실행하는 ASGI 서버입니다.
+uvicorn[standard]>=0.30.0
+
+# `.env` 파일의 환경변수를 Python에서 읽기 위해 사용합니다.
+python-dotenv>=1.0.0
+
+# Supabase 테이블에 상품과 서비스 로그를 저장할 때 사용합니다.
+supabase>=2.0.0
+
+# 테스트 코드 실행에 사용합니다.
+pytest>=8.0.0
+
+# FastAPI TestClient 내부에서 HTTP 요청 시뮬레이션에 사용합니다.
+httpx>=0.27.0

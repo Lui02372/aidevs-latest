@@ -1,0 +1,8 @@
+teams:
+  travel_collaboration_team:
+    parallel_workers: [weather_agent, place_agent, budget_agent]
+    required_workers: [weather_agent, budget_agent]
+    optional_workers: [place_agent]
+    aggregator: itinerary_agent
+    failure_policy: required_optional
+    timeout_seconds: 120

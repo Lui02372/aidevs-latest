@@ -1,0 +1,246 @@
+{
+  "checked_at": "2026-09-15T15:44:45.386569+09:00",
+  "python": "3.13.14",
+  "overall_static_pass": true,
+  "files": {
+    "README.md": {
+      "checks": {
+        "baseline_sha256": true,
+        "unmodified": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 0,
+      "final_lines": 303,
+      "sha256": "b9bea9262fc4b22e4075c94d9c1775ac3166d642f70959571b265c41d785d5c9"
+    },
+    "guide.md": {
+      "checks": {
+        "baseline_sha256": true,
+        "unmodified": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 0,
+      "final_lines": 941,
+      "sha256": "32ee0589e0084d62770272ba51dce1668ec5d98f07316d1dab33f8e7c018a463"
+    },
+    "COMPOSE_EXPLAINED.md": {
+      "checks": {
+        "baseline_sha256": true,
+        "unmodified": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 0,
+      "final_lines": 90,
+      "sha256": "6c65c17f6f17f6f7063de5376093d79baccfe2de05c49959619fad682e505a9d"
+    },
+    "TROUBLESHOOTING.md": {
+      "checks": {
+        "baseline_sha256": true,
+        "unmodified": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 0,
+      "final_lines": 131,
+      "sha256": "bb7a9f190b5ef5c0ff494d4443e531e91d0932bfdfd2428a7ba86ae22e238209"
+    },
+    "init_database.py": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "python_312_grammar_before_after": true,
+        "ast_equal_without_locations": true,
+        "python_tokens_equal": true
+      },
+      "added_lines": 16,
+      "final_lines": 76,
+      "sha256": "b554adb69733d7c110f0cebb14a7864372c7ec58852874952ab972721578a194"
+    },
+    "backend/app.py": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "python_312_grammar_before_after": true,
+        "ast_equal_without_locations": true,
+        "python_tokens_equal": true
+      },
+      "added_lines": 41,
+      "final_lines": 207,
+      "sha256": "5948aef5434c47e57f0ebdada282efe0a245bc47bb9dfac34c07950f1c3aa33e"
+    },
+    "backend/services.py": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "python_312_grammar_before_after": true,
+        "ast_equal_without_locations": true,
+        "python_tokens_equal": true
+      },
+      "added_lines": 56,
+      "final_lines": 247,
+      "sha256": "3bce514824b8627cdbc930f4a200c7ff5575cf49660c9cfececf62ad5922edf4"
+    },
+    "backend/test_app.py": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "python_312_grammar_before_after": true,
+        "ast_equal_without_locations": true,
+        "python_tokens_equal": true
+      },
+      "added_lines": 21,
+      "final_lines": 90,
+      "sha256": "5fa4cb128f0206c713ebf59a5984ba291fe96319bec9098b65dd8cad28762451"
+    },
+    "frontend/app.py": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "python_312_grammar_before_after": true,
+        "ast_equal_without_locations": true,
+        "python_tokens_equal": true
+      },
+      "added_lines": 31,
+      "final_lines": 125,
+      "sha256": "aceaf9a4cf2cbc8337f1ae5b106ffcc81538cd3ece93c60e36c699299075b75e"
+    },
+    "backend/requirements.txt": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "requirements_lines_equal_not_parser_validation": true
+      },
+      "added_lines": 7,
+      "final_lines": 14,
+      "sha256": "6bd76fc88f7aa7e2b34fe56857e13ca31cfcb9bbcf33bac6f4cfce64738f900a"
+    },
+    "frontend/requirements.txt": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "requirements_lines_equal_not_parser_validation": true
+      },
+      "added_lines": 2,
+      "final_lines": 5,
+      "sha256": "a4eb3f7fd5cc7c80d44d7f807077f15446a7ba6b7bfc3463465a008058d9035e"
+    },
+    "backend/Dockerfile": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 6,
+      "final_lines": 13,
+      "sha256": "6d40892123dbcef1b9c03d52d546447aefb344631dd741f8509dea84677966a7"
+    },
+    "frontend/Dockerfile": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 6,
+      "final_lines": 13,
+      "sha256": "4b629614069ff94b6189079622d17cd483640b9b0f850494459f63923e8d61f2"
+    },
+    "compose.yml": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 20,
+      "final_lines": 60,
+      "sha256": "24d5131aa30383f3cb9a999acb038cdf6b3b65c10ef4e4d949c42e81843ff950"
+    },
+    "compose.release.yml": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 20,
+      "final_lines": 62,
+      "sha256": "1a8c590eb11739fdf977db12dd8440902e39fb8dfe60617fc4a3c51fce93d3b5"
+    },
+    "compose.full-stack.yml": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true
+      },
+      "added_lines": 34,
+      "final_lines": 109,
+      "sha256": "53082081782ae51f6d22fe182ccddbbac89b80f5844f951b4a2c87fdf2dff144"
+    },
+    "database/init.sql": {
+      "checks": {
+        "baseline_sha256": true,
+        "no_external_changes": true,
+        "insert_only": true,
+        "only_learning_comments": true,
+        "encoding_line_endings_preserved": true,
+        "sql_tokens_equal_not_grammar_validation": true
+      },
+      "added_lines": 10,
+      "final_lines": 29,
+      "sha256": "3511d04ed1144c4d28edda9823c7abfecd45c1994e0f3d91aed955e6222e3518"
+    }
+  },
+  "document": {
+    "ten_sections": true,
+    "two_diagrams": true,
+    "reference_paths_and_line_bounds": true,
+    "all_reference_symbols_match_final_lines": true,
+    "mermaid_ids_only_not_parser": true,
+    "mermaid_alt_balance_only": true,
+    "annotation_rerun_added_nothing": true,
+    "all_source_files_named": true,
+    "no_template_tokens": true,
+    "no_secret_patterns_in_new_content": true
+  },
+  "reference_count": 134,
+  "limitations": [
+    "No YAML/Compose parser",
+    "No Dockerfile parser",
+    "No packaging requirements parser",
+    "sqlparse is not a PostgreSQL grammar validator",
+    "No Mermaid renderer/parser",
+    "No pytest/FastAPI/Streamlit in this validation interpreter"
+  ]
+}

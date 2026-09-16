@@ -1,0 +1,40 @@
+# 시나리오: 수신자 PC에는 PostgreSQL·Redis·Ollama가 이미 Docker Container로 실행 중이다.
+# 수업 운영자가 Registry에 올린 Backend·Frontend Image만 내려받아 실행한다.
+name: release-simple-multi-llm
+
+services:
+  backend:
+    # release.env의 Docker Hub 사용자명과 버전으로 이미지를 지정한다.
+    image: ${DOCKERHUB_USERNAME:?DOCKERHUB_USERNAME을 release.env에 설정하세요}/simple-multi-llm-backend:${IMAGE_TAG:-latest}
+    pull_policy: always
+    env_file:
+      - ./backend/.env
+    environment:
+      REDIS_URL: ${REDIS_URL:-redis://host.docker.internal:6379/0}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://agent_user:agent_pwd@host.docker.internal:5433/agent_db}
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    # release.env의 Docker Hub 사용자명과 버전으로 이미지를 지정한다.
+    image: ${DOCKERHUB_USERNAME:?DOCKERHUB_USERNAME을 release.env에 설정하세요}/simple-multi-llm-frontend:${IMAGE_TAG:-latest}
+    pull_policy: always
+    env_file:
+      - ./frontend/.env
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

@@ -1,0 +1,287 @@
+diff --git a/mini_agent_04_rag/backend/app/schemas/rag.py b/mini_agent_04_rag/backend/app/schemas/rag.py
+--- a/mini_agent_04_rag/backend/app/schemas/rag.py
++++ b/mini_agent_04_rag/backend/app/schemas/rag.py
+@@ -23,10 +23,8 @@ class RagChunk(BaseModel):
+ 
+ class SearchRequest(BaseModel):
+     question: str = Field(min_length=1, max_length=2000)
+-    mode: Literal["keyword", "pgvector", "hybrid"] = "keyword"
++    mode: Literal["keyword", "pgvector"] = "keyword"
+     top_k: int = Field(default=3, ge=1, le=10)
+-    score_threshold: float | None = Field(default=None, ge=-1, le=1)
+-    metadata_filter: dict[str, Any] = Field(default_factory=dict)
+ 
+ 
+ class SearchItem(BaseModel):
+@@ -36,9 +34,6 @@ class SearchItem(BaseModel):
+     score: float
+     chunk_index: int = 0
+     metadata: dict[str, Any] = Field(default_factory=dict)
+-    keyword_rank: int | None = None
+-    vector_rank: int | None = None
+-    matched_by: list[str] = Field(default_factory=list)
+ 
+ 
+ class SearchResult(BaseModel):
+@@ -61,7 +56,6 @@ class AnswerResult(BaseModel):
+     results: list[SearchItem] = Field(default_factory=list)
+     cache_hit: bool = False
+     cache_ttl_seconds: int = 0
+-    trace: list[dict[str, Any]] = Field(default_factory=list)
+ 
+ 
+ class IndexResult(BaseModel):
+@@ -69,10 +63,3 @@ class IndexResult(BaseModel):
+     indexed_count: int
+     embedding_model: str
+     source: str | None = None
+-
+-
+-class TextIndexRequest(BaseModel):
+-    title: str = Field(min_length=1, max_length=200)
+-    content: str = Field(min_length=1, max_length=100000)
+-    source: str = Field(min_length=1, max_length=200)
+-    metadata: dict[str, Any] = Field(default_factory=dict)
+diff --git a/mini_agent_04_rag/backend/app/simple_router.py b/mini_agent_04_rag/backend/app/simple_router.py
+--- a/mini_agent_04_rag/backend/app/simple_router.py
++++ b/mini_agent_04_rag/backend/app/simple_router.py
+@@ -54,9 +54,6 @@ def search(payload: SearchRequest) -> SearchResult:
+             payload.question,
+             payload.mode,
+             payload.top_k,
+-            payload.score_threshold,
+-            payload.metadata_filter,
+         )
+@@ -75,9 +72,6 @@ def answer(payload: AnswerRequest):
+             payload.top_k,
+             payload.use_ollama,
+             payload.use_cache,
+-            payload.score_threshold,
+-            payload.metadata_filter,
+         )
+diff --git a/mini_agent_04_rag/backend/app/simple_service.py b/mini_agent_04_rag/backend/app/simple_service.py
+--- a/mini_agent_04_rag/backend/app/simple_service.py
++++ b/mini_agent_04_rag/backend/app/simple_service.py
+@@ -1,6 +1,4 @@
+ """검색, Context 구성, 답변 생성을 순서대로 보여주는 간단한 RAG Service입니다."""
+ 
+-import re
+-
+ import httpx
+@@ -8,29 +6,8 @@ from app.core.config import settings
+ from app.rag import redis_cache
+ from app.rag.embedding import embed
+ from app.rag.keyword_store import all_chunks, keyword_search
+-from app.rag.pgvector_store import indexed_documents, vector_search, write_chunks
++from app.rag.pgvector_store import vector_search, write_chunks
+ from app.schemas import AnswerResult, IndexResult, RagChunk, SearchItem
+ 
+-
+-def keyword_search_indexed(
+-    question: str,
+-    top_k: int,
+-    metadata_filter: dict,
+-) -> list[SearchItem]:
+-    question_words = set(re.findall(r"[가-힣A-Za-z0-9-]+", question.lower()))
+-    results = []
+-
+-    for item in indexed_documents(metadata_filter):
+-        document_words = set(
+-            re.findall(r"[가-힣A-Za-z0-9-]+", f"{item.title} {item.content}".lower())
+-        )
+-        common_words = question_words & document_words
+-        if common_words:
+-            item.score = len(common_words) / max(len(question_words), 1)
+-            results.append(item)
+-
+-    results.sort(key=lambda item: item.score, reverse=True)
+-    return results[:top_k]
+ 
+ 
+ def search_documents(
+@@ -38,37 +15,14 @@ def search_documents(
+     question: str,
+     mode: str,
+     top_k: int,
+-    score_threshold: float | None = None,
+-    metadata_filter: dict | None = None,
+ ) -> list[SearchItem]:
+     """선택한 검색 방식으로 관련 문서를 찾습니다."""
+-    metadata_filter = metadata_filter or {}
+-
+     if mode == "keyword":
+-        if metadata_filter:
+-            return keyword_search_indexed(question, top_k, metadata_filter)
+         return keyword_search(question, top_k)
+ 
+     if mode == "pgvector":
+-        return vector_search(
+-            embed(question),
+-            top_k,
+-            score_threshold,
+-            metadata_filter,
+-        )
+-
+-    if mode == "hybrid":
+-        keyword_results = keyword_search_indexed(question, top_k, metadata_filter)
+-        vector_results = vector_search(
+-            embed(question),
+-            top_k,
+-            score_threshold,
+-            metadata_filter,
+-        )
+-        combined = {}
+-        for item in keyword_results + vector_results:
+-            key = (item.source, item.chunk_index)
+-            combined[key] = item
+-        return list(combined.values())[:top_k]
++        return vector_search(embed(question), top_k)
+ 
+     raise ValueError(f"지원하지 않는 검색 방식입니다: {mode}")
+@@ -143,19 +97,14 @@ def answer_question(
+     top_k: int,
+     use_ollama: bool,
+     use_cache: bool,
+-    score_threshold: float | None = None,
+-    metadata_filter: dict | None = None,
+ ) -> AnswerResult:
+     """Cache 확인 → 검색 → Context → 답변 순서로 실행합니다."""
+-    metadata_filter = metadata_filter or {}
+     cache_key = redis_cache.make_key(
+         question,
+         mode,
+         top_k,
+         "ollama" if use_ollama else "mock",
+-        score_threshold,
+-        metadata_filter,
+     )
+@@ -170,9 +119,6 @@ def answer_question(
+         question,
+         mode,
+         top_k,
+-        score_threshold,
+-        metadata_filter,
+     )
+diff --git a/mini_agent_04_rag/backend/app/rag/redis_cache.py b/mini_agent_04_rag/backend/app/rag/redis_cache.py
+--- a/mini_agent_04_rag/backend/app/rag/redis_cache.py
++++ b/mini_agent_04_rag/backend/app/rag/redis_cache.py
+@@ -2,7 +2,6 @@
+ 
+ import hashlib
+ import json
+ from typing import Any
+ 
+ from redis import Redis
+@@ -22,14 +22,10 @@ def make_key(
+     mode: str,
+     top_k: int,
+     provider: str,
+-    score_threshold: float | None = None,
+-    metadata_filter: dict[str, Any] | None = None,
+ ) -> str:
+     # 검색 조건이나 모델이 달라지면 같은 질문도 별도 Cache 항목으로 취급합니다.
+     payload = (
+         f"{settings.rag_collection}|{settings.ollama_embedding_model}|"
+-        f"{settings.rag_min_score}|{query.strip()}|{mode}|{top_k}|{provider}|"
+-        f"{score_threshold}|{json.dumps(metadata_filter or {}, ensure_ascii=False, sort_keys=True)}"
++        f"{settings.rag_min_score}|{query.strip()}|{mode}|{top_k}|{provider}"
+     )
+diff --git a/mini_agent_04_rag/frontend/api_client.py b/mini_agent_04_rag/frontend/api_client.py
+--- a/mini_agent_04_rag/frontend/api_client.py
++++ b/mini_agent_04_rag/frontend/api_client.py
+@@ -37,15 +37,11 @@ def search_documents(
+     question: str,
+     mode: str,
+     top_k: int,
+-    score_threshold: float | None = None,
+-    metadata_filter: dict | None = None,
+ ) -> dict:
+     return request("POST", "/api/rag/search", json={
+         "question": question,
+         "mode": mode,
+         "top_k": top_k,
+-        "score_threshold": score_threshold,
+-        "metadata_filter": metadata_filter or {},
+     })
+diff --git a/mini_agent_04_rag/frontend/app.py b/mini_agent_04_rag/frontend/app.py
+--- a/mini_agent_04_rag/frontend/app.py
++++ b/mini_agent_04_rag/frontend/app.py
+@@ -13,6 +13,6 @@ pages = [
+     st.Page("simple_pages/03_vector_search.py", title="2. pgvector 의미 검색"),
+     st.Page("simple_pages/04_rag_answer.py", title="3. 근거 기반 답변"),
+     st.Page("simple_pages/05_pdf_rag.py", title="4. PDF RAG"),
+-    st.Page("simple_pages/06_cache_filter.py", title="5. Cache와 검색 조건"),
++    st.Page("simple_pages/06_cache_filter.py", title="5. Redis Cache"),
+ ]
+diff --git a/mini_agent_04_rag/frontend/simple_pages/06_cache_filter.py b/mini_agent_04_rag/frontend/simple_pages/06_cache_filter.py
+--- a/mini_agent_04_rag/frontend/simple_pages/06_cache_filter.py
++++ b/mini_agent_04_rag/frontend/simple_pages/06_cache_filter.py
+@@ -1,11 +1,7 @@
+-import json
+-
+ import streamlit as st
+ 
+-from api_client import answer_question, search_documents
++from api_client import answer_question
+ 
+ 
+-st.title("5. Cache와 검색 조건")
+-st.subheader("동일 질문 Cache")
++st.title("5. Redis Cache")
+ question = st.text_input("질문", "수하물은 몇 kg까지 가능한가요?")
+ if st.button("질문 보내기"):
+@@ -16,14 +12,3 @@ if st.button("질문 보내기"):
+         st.write(result["answer"])
+     except RuntimeError as error:
+         st.error(str(error))
+-
+-st.divider()
+-st.subheader("Metadata와 Hybrid 검색")
+-filter_text = st.text_input("Metadata JSON", "{}")
+-if st.button("Hybrid 검색"):
+-    try:
+-        metadata = json.loads(filter_text)
+-        result = search_documents(question, "hybrid", 3, None, metadata)
+-        st.json(result["results"])
+-    except (RuntimeError, json.JSONDecodeError) as error:
+-        st.error(str(error))
+diff --git a/mini_agent_04_rag/README.md b/mini_agent_04_rag/README.md
+--- a/mini_agent_04_rag/README.md
++++ b/mini_agent_04_rag/README.md
+@@ -15,7 +15,7 @@
+ 2. pgvector 의미 검색
+ 3. 근거 기반 답변
+ 4. PDF RAG
+-5. Cache와 검색 조건
++5. Redis Cache
+@@ -66,17 +66,17 @@ Ollama 답변을 확인합니다.
+ 
+ ## 독립 Python 예제
+ 
+-`learning_unit`에는 `C:\aidevs\05_llm-agent-orchestration\04_rag`의 01~15 예제만
+-유지합니다. `10_labs`와 `20_assignments`는 이 프로젝트 범위에서 제외했습니다.
++`learning_unit`은 `C:\aidevs\05_llm-agent-orchestration\04_rag`의 현재 01~09
++기본 RAG 예제와 같은 구성을 유지합니다.
+ 
+ PDF 단계는 다음처럼 실행합니다.
+ 
+ ```powershell
+ cd C:\mini_agent_st\mini_agent_04_rag\learning_unit
+-python .\12_01_pdf_chunk.py
+-python .\12_02_pdf_rag.py
+-python .\12_03_pdf_rag_ollama.py
+-python .\12_04_pdf_rag_cache.py
++python .\09_01_pdf_index.py
++python .\09_02_pdf_search.py
++python .\09_03_pdf_rag_ollama.py
++python .\09_04_pdf_rag_cache.py
+ ```
+diff --git a/mini_agent_04_rag/BEGINNER_GUIDE.md b/mini_agent_04_rag/BEGINNER_GUIDE.md
+--- a/mini_agent_04_rag/BEGINNER_GUIDE.md
++++ b/mini_agent_04_rag/BEGINNER_GUIDE.md
+@@ -17,7 +17,7 @@
+ 4. 교육용 문서를 색인합니다.
+ 5. 검색 방식을 `pgvector`로 바꿉니다.
+ 6. 같은 질문을 두 번 실행해 Redis Cache MISS→HIT를 확인합니다.
+-7. `Cache와 검색 조건`에서 동일 질문을 두 번 보내 MISS→HIT를 확인합니다.
++7. `Redis Cache`에서 동일 질문을 두 번 보내 MISS→HIT를 확인합니다.
