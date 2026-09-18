@@ -11,7 +11,7 @@ import streamlit as st
 
 
 # [학습] BACKEND_URL을 프로세스 환경에서 읽는다. Compose에서는 backend 서비스 이름을 사용하는 주소가 전달된다.
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+BACKEND_URL = os.getenv("BACKEND_URL, "http://127.0.0.1:8000")
 
 
 # [학습] 공통 API 함수는 HTTP 메서드·상대 경로·선택 JSON 본문을 받아 JSON 응답을 dict로 돌려준다.
