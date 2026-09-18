@@ -13,7 +13,7 @@ from services import MultiLLMChatService, PostgresRepository, RedisSessionStore
 
 
 # [학습] 이 app 객체를 Dockerfile의 uvicorn app:app이 가져와 HTTP 서버로 제공한다.
-app = FahstAPI(title="Multi-LLM Runtime Demo", version="2.0.0")
+app = FastAPI(title="Multi-LLM Runtime Demo", version="2.0.0")
 
 
 # [학습] 메모 POST 요청의 입력 계약이다. 두 문자열은 필수이며 빈 문자열과 과도한 길이는 거부된다.
