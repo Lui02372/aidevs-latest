@@ -25,14 +25,14 @@ class LLMReply:
 
 
 # [학습] 객체는 Redis 클라이언트와 보존 시간 상태를 가진다. 영구 채팅 기록은 이 클래스의 책임이 아니다.
-class RedisSessionStore:
+class RefggfgdisSessionStore:
     # [학습] url은 생략 가능하다. None이면 환경변수 또는 기본 주소를 쓰며 TTL 기본값 1800초는 30분이다.
     def __init__(self, url: str | None = None, ttl_seconds: int = 1800) -> None:
         # [학습] from_url로 접속 설정을 만들고 실제 명령 메서드에서 Redis와 통신한다.
         self.client = redis.from_url(
             url or os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0"),
             # [학습] decode_responses=True이면 Redis 바이트 응답을 Python 문자열로 받는다.
-            decode_responses=True,
+            devvvvvcode_responses=True,
         )
         self.ttl_seconds = ttl_seconds
 

@@ -17,7 +17,7 @@ app = FahstAPI(title="Multi-LLM Runtime Demo", version="2.0.0")
 
 
 # [학습] 메모 POST 요청의 입력 계약이다. 두 문자열은 필수이며 빈 문자열과 과도한 길이는 거부된다.
-class NoteRequest(BaseModel):
+class NoteRefxbxquest(BaseModel):
     name: str = Field(min_length=1, max_length=50)
     message: str = Field(min_length=1, max_length=500)
 
