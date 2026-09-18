@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "id": "00",
+      "title": "공용 PostgreSQL·Redis",
+      "directory": "00_local-services",
+      "guide": "00_local-services/doc/ConnectGuide.md",
+      "compose": [
+        "docker-compose.yml"
+      ],
+      "envExample": "00_local-services/.env.example",
+      "url": "",
+      "pythonGroup": "compose",
+      "services": [
+        "postgres",
+        "redis"
+      ],
+      "backendUrl": ""
+    },
+    {
+      "id": "01",
+      "title": "Multi LLM Compose",
+      "directory": "01_simple-multi-llm-compose",
+      "guide": "01_simple-multi-llm-compose/doc/ConnectGuide.md",
+      "compose": [
+        "compose.full-stack.yml"
+      ],
+      "envExample": "01_simple-multi-llm-compose/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "compose",
+      "services": [
+        "frontend",
+        "backend",
+        "database",
+        "redis"
+      ],
+      "backendUrl": "http://localhost:8000"
+    },
+    {
+      "id": "01-2",
+      "title": "Multi LLM Compose 2",
+      "directory": "01_simple-multi-llm-compose2",
+      "guide": "01_simple-multi-llm-compose2/doc/ConnectGuide.md",
+      "compose": [
+        "compose.full-stack.yml"
+      ],
+      "envExample": "01_simple-multi-llm-compose/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "compose",
+      "services": [
+        "frontend",
+        "backend",
+        "database",
+        "redis"
+      ],
+      "backendUrl": "http://localhost:8000"
+    },
+    {
+      "id": "01-3",
+      "title": "Multi LLM Compose 3",
+      "directory": "01_simple-multi-llm-compose3",
+      "guide": "01_simple-multi-llm-compose3/doc/ConnectGuide.md",
+      "compose": [
+        "compose.full-stack.yml"
+      ],
+      "envExample": "01_simple-multi-llm-compose3/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "compose",
+      "services": [
+        "frontend",
+        "backend",
+        "database",
+        "redis"
+      ],
+      "backendUrl": "http://localhost:8000"
+    },
+    {
+      "id": "02",
+      "title": "GitHub Actions 첫 CI",
+      "directory": "02_github-actions-ci",
+      "guide": "02_github-actions-ci/doc/ConnectGuide.md",
+      "compose": [],
+      "envExample": "02_github-actions-ci/.env.example",
+      "url": "",
+      "pythonGroup": "",
+      "services": [],
+      "backendUrl": ""
+    },
+    {
+      "id": "03",
+      "title": "EC2 수동 연결",
+      "directory": "03_aws-ec2",
+      "guide": "03_aws-ec2/doc/ConnectGuide.md",
+      "compose": [],
+      "envExample": "03_aws-ec2/.env.example",
+      "url": "",
+      "pythonGroup": "",
+      "services": [],
+      "backendUrl": ""
+    },
+    {
+      "id": "04",
+      "title": "GitHub Actions CD 연결",
+      "directory": "04_github-actions-aws-deploy",
+      "guide": "04_github-actions-aws-deploy/doc/ConnectGuide.md",
+      "compose": [],
+      "envExample": "04_github-actions-aws-deploy/.env.example",
+      "url": "",
+      "pythonGroup": "",
+      "services": [],
+      "backendUrl": ""
+    },
+    {
+      "id": "05",
+      "title": "Weather MCP",
+      "directory": "05_weather-mcp-deployment-project",
+      "guide": "05_weather-mcp-deployment-project/doc/ConnectGuide.md",
+      "compose": [
+        "compose.yml"
+      ],
+      "envExample": "05_weather-mcp-deployment-project/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "weather",
+      "services": [
+        "frontend",
+        "backend",
+        "weather-mcp"
+      ],
+      "backendUrl": "http://localhost:8000"
+    },
+    {
+      "id": "06",
+      "title": "Weather MCP + PostgreSQL·Redis",
+      "directory": "06_weather-mcp-stateful-deployment",
+      "guide": "06_weather-mcp-stateful-deployment/doc/ConnectGuide.md",
+      "compose": [
+        "compose.infrastructure.yml",
+        "compose.application.yml"
+      ],
+      "envExample": "06_weather-mcp-stateful-deployment/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "weather",
+      "services": [
+        "frontend",
+        "backend",
+        "weather-mcp",
+        "database",
+        "redis"
+      ],
+      "backendUrl": "http://localhost:8000"
+    },
+    {
+      "id": "07",
+      "title": "통합 실습 + OIDC·SSM CI/CD",
+      "directory": "07_integrated-bedrock-mcp",
+      "guide": "07_integrated-bedrock-mcp/doc/ConnectGuide.md",
+      "compose": [
+        "compose.infrastructure.yml",
+        "compose.application.yml"
+      ],
+      "envExample": "07_integrated-bedrock-mcp/.env.example",
+      "url": "http://localhost:8501",
+      "pythonGroup": "weather",
+      "services": [
+        "frontend",
+        "backend",
+        "weather-mcp",
+        "database",
+        "redis"
+      ],
+      "backendUrl": "http://localhost:8000"
+    }
+  ]
+}

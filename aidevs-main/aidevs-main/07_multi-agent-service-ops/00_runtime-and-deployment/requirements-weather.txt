@@ -1,0 +1,12 @@
+-r 05_weather-mcp-deployment-project/backend/requirements.txt
+-r 05_weather-mcp-deployment-project/frontend/requirements.txt
+-r 05_weather-mcp-deployment-project/mcp_server/requirements.txt
+-r 06_weather-mcp-stateful-deployment/backend/requirements.txt
+-r 06_weather-mcp-stateful-deployment/frontend/requirements.txt
+-r 06_weather-mcp-stateful-deployment/mcp_server/requirements.txt
+-r 07_integrated-bedrock-mcp/backend/requirements.txt
+-r 07_integrated-bedrock-mcp/frontend/requirements.txt
+-r 07_integrated-bedrock-mcp/mcp_server/requirements.txt
+pytest>=8,<10
+python-dotenv>=1,<2
+boto3>=1.35,<2

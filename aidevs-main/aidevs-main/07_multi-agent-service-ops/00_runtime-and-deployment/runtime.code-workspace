@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "name": "00 공용 PostgreSQL·Redis",
+      "path": "00_local-services"
+    },
+    {
+      "name": "01 Multi LLM Compose",
+      "path": "01_simple-multi-llm-compose"
+    },
+    {
+      "name": "01-2 Multi LLM Compose 2",
+      "path": "01_simple-multi-llm-compose2"
+    },
+    {
+      "name": "01-3 Multi LLM Compose 3",
+      "path": "01_simple-multi-llm-compose3"
+    },
+    {
+      "name": "05 Weather MCP",
+      "path": "05_weather-mcp-deployment-project"
+    },
+    {
+      "name": "06 Weather MCP + PostgreSQL·Redis",
+      "path": "06_weather-mcp-stateful-deployment"
+    },
+    {
+      "name": "07 통합 실습 + OIDC·SSM CI/CD",
+      "path": "07_integrated-bedrock-mcp"
+    }
+  ],
+  "settings": {},
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance"
+    ]
+  }
+}

@@ -114,6 +114,10 @@ docker compose -f .\deploy\compose.yaml ps
 
 ## 4. AWS로 옮기기
 
+**기존 EC2와 PostgreSQL 실습은 [EC2 실습 가이드](./deploy/ec2/README.md)를 먼저 따르세요.**
+실제 DB 연결 검사, GitHub Actions 테스트, EC2 배포와 이전 이미지 복구를 포함합니다.
+아래 ECS 구성은 별도 확장 경로입니다.
+
 [`deploy/aws/README.md`](./deploy/aws/README.md)에서 ECR·ECS·RDS·ElastiCache·CloudWatch의
 대응 관계를 확인합니다. 그 다음
 [`ecs-task-definition.example.json`](./deploy/aws/ecs-task-definition.example.json)의 Placeholder를

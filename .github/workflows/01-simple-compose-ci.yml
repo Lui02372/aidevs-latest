@@ -1,0 +1,83 @@
+# 01_simple-multi-llm-compose 전용 CI
+# 푸시·PR마다 테스트 → Compose 문법 검사 → 이미지 빌드 → 전체 스택 실행 후 readiness 확인
+name: 01 Simple Compose CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/01_simple-multi-llm-compose/**"
+      - ".github/workflows/01-simple-compose-ci.yml"
+  pull_request:
+    paths:
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/01_simple-multi-llm-compose/**"
+      - ".github/workflows/01-simple-compose-ci.yml"
+  # Actions 화면에서 수동 실행 버튼(Run workflow)을 제공한다.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PROJECT_DIR: aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/01_simple-multi-llm-compose
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.PROJECT_DIR }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/backend/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r backend/requirements.txt pytest
+
+      # 가짜 Redis·DB를 쓰는 단위 테스트라서 실제 서비스 없이 실행된다.
+      - name: Unit tests
+        run: python -m pytest backend -q
+
+  compose:
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.PROJECT_DIR }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # CI에는 .env가 없으므로 예제 파일로 대체한다. 실제 API 키는 필요하지 않다.
+      - name: Prepare .env
+        run: cp .env.example .env
+
+      - name: Validate compose file
+        run: docker compose -f compose.full-stack.yml config --quiet
+
+      - name: Build images
+        run: docker compose -f compose.full-stack.yml build
+
+      - name: Start full stack
+        run: docker compose -f compose.full-stack.yml up -d
+
+      # 로컬에서 확인한 것과 같은 readiness API로 Redis·DB·스키마 연결까지 검증한다.
+      - name: Wait for readiness
+        run: curl --fail --silent --show-error --retry 20 --retry-delay 5 --retry-all-errors http://127.0.0.1:8000/health/ready
+
+      - name: Show logs on failure
+        if: failure()
+        run: |
+          docker compose -f compose.full-stack.yml ps
+          docker compose -f compose.full-stack.yml logs --tail 100
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f compose.full-stack.yml down -v

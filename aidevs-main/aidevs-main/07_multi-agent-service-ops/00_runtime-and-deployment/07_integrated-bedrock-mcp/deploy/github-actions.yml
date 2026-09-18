@@ -1,0 +1,73 @@
+# Git 저장소 루트 .github/workflows/07-integrated-bedrock-mcp.yml로 복사한다.
+name: 07 Integrated Weather MCP
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy to EC2 after CI
+        type: boolean
+        default: false
+permissions:
+  contents: read
+env:
+  PROJECT_DIR: aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/07_integrated-bedrock-mcp
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test and build
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          python -m pip install -r backend/requirements.txt pytest
+          python -m pytest backend -q
+          docker compose -f compose.infrastructure.yml config --quiet
+          docker compose -f compose.application.yml config --quiet
+          docker compose -f compose.application.yml build
+          tar -czf /tmp/weather-07.tar.gz backend frontend mcp_server database compose.infrastructure.yml compose.application.yml deploy/deploy.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weather-07-source
+          path: /tmp/weather-07.tar.gz
+          retention-days: 7
+  deploy:
+    needs: ci
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy))
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment: production
+    concurrency:
+      group: weather-07-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ARTIFACT_BUCKET: ${{ vars.ARTIFACT_BUCKET }}
+      EC2_INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: weather-07-source
+          path: /tmp/weather-07
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Publish source and wait for EC2 deployment
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          aws s3 cp /tmp/weather-07/weather-07.tar.gz "s3://$ARTIFACT_BUCKET/weather-07/$GITHUB_SHA.tar.gz"
+          python -m pip install 'boto3>=1.35,<2'
+          python deploy/ssm_deploy.py

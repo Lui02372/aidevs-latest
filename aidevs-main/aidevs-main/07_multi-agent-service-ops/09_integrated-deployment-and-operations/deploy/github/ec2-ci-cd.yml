@@ -1,0 +1,107 @@
+name: 09 EC2 CI CD
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy to EC2 after tests
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  COURSE: aidevs-main/aidevs-main/07_multi-agent-service-ops
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci_user
+          POSTGRES_PASSWORD: ci_password
+          POSTGRES_DB: ci_db
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U ci_user -d ci_db" --health-interval 5s --health-timeout 5s --health-retries 12
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 12
+    env:
+      DATABASE_URL: postgresql://ci_user:ci_password@127.0.0.1:5432/ci_db
+      REDIS_URL: redis://127.0.0.1:6379/0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install and test
+        run: |
+          cd "$COURSE"
+          pip install -r requirements.txt
+          python -m pytest tests -q
+          python 08_multi-ai-agent-service/init_database.py
+          RUN_DEPLOY_INTEGRATION=1 python -m pytest 09_integrated-deployment-and-operations/deploy/ec2/test_integration.py -q
+          python 09_integrated-deployment-and-operations/deploy/ec2/check_database.py
+          bash -n 09_integrated-deployment-and-operations/deploy/ec2/deploy.sh
+      - name: Build exact commit image
+        run: |
+          docker build -t "multi-agent-09:$GITHUB_SHA" -f "$COURSE/09_integrated-deployment-and-operations/deploy/Dockerfile" "$COURSE"
+          export APP_IMAGE="multi-agent-09:$GITHUB_SHA"
+          export APP_ENV_FILE="$GITHUB_WORKSPACE/$COURSE/09_integrated-deployment-and-operations/deploy/ec2/.env.example"
+          docker compose -f "$COURSE/09_integrated-deployment-and-operations/deploy/ec2/compose.yaml" config --quiet
+      - name: Package verified release
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          mkdir release
+          cp "$COURSE/09_integrated-deployment-and-operations/deploy/ec2/compose.yaml" release/
+          cp "$COURSE/09_integrated-deployment-and-operations/deploy/ec2/deploy.sh" release/
+          docker save "multi-agent-09:$GITHUB_SHA" | gzip > release/image.tar.gz
+      - uses: actions/upload-artifact@v4
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          name: ec2-release
+          path: release/
+          retention-days: 3
+
+  deploy:
+    needs: verify
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.deploy == true)
+    runs-on: ubuntu-latest
+    environment: ec2-learning
+    concurrency:
+      group: ec2-learning-deploy
+      cancel-in-progress: false
+    env:
+      EC2_HOST: ${{ vars.EC2_HOST }}
+      EC2_USER: ${{ vars.EC2_USER }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ec2-release
+          path: release
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
+        run: |
+          test -n "$EC2_HOST" && test -n "$EC2_USER"
+          test -n "$SSH_KEY" && test -n "$KNOWN_HOSTS"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+      - name: Transfer and deploy
+        run: |
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$EC2_USER@$EC2_HOST" "mkdir -p ~/multi-agent-09/releases/$GITHUB_SHA"
+          scp -o BatchMode=yes -o StrictHostKeyChecking=yes release/* "$EC2_USER@$EC2_HOST:multi-agent-09/releases/$GITHUB_SHA/"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$EC2_USER@$EC2_HOST" "set -e; cd ~/multi-agent-09/releases/$GITHUB_SHA; docker load -i image.tar.gz; bash deploy.sh $GITHUB_SHA; rm -f image.tar.gz"
+      - name: Remove runner SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519

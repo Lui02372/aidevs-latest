@@ -1,0 +1,70 @@
+name: multi-agent-09
+
+x-app: &app
+  image: ${APP_IMAGE:?Set APP_IMAGE}
+  env_file: ${APP_ENV_FILE:?Set APP_ENV_FILE}
+  restart: unless-stopped
+  extra_hosts:
+    - host.docker.internal:host-gateway
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  api:
+    <<: *app
+    command: uvicorn backend:app --app-dir 08_multi-ai-agent-service --host 0.0.0.0 --port 8000
+    ports: ["127.0.0.1:18000:8000"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, 09_integrated-deployment-and-operations/deploy/healthcheck.py]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+  worker:
+    <<: *app
+    command: python 09_integrated-deployment-and-operations/worker.py
+    depends_on:
+      api:
+        condition: service_healthy
+      mcp:
+        condition: service_started
+  mcp:
+    <<: *app
+    command: python 09_integrated-deployment-and-operations/mcp_server.py
+    environment:
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: "8010"
+  frontend:
+    <<: *app
+    command: streamlit run 08_multi-ai-agent-service/frontend.py --server.address 0.0.0.0 --server.port 8501
+    environment:
+      MULTI_AGENT_API_URL: http://api:8000
+    ports: ["127.0.0.1:18501:8501"]
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+volumes:
+  redis-data:

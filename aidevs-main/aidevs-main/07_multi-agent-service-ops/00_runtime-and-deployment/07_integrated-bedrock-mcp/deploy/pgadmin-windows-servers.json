@@ -1,0 +1,31 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "07 Windows - Project (5432 / weather07_db)",
+      "Group": "07 - Canonical connections",
+      "Host": "127.0.0.1",
+      "Port": 5432,
+      "MaintenanceDB": "weather07_db",
+      "Username": "weather07_user",
+      "SSLMode": "prefer"
+    },
+    "2": {
+      "Name": "Windows - Admin (5432 / postgres)",
+      "Group": "07 - Canonical connections",
+      "Host": "127.0.0.1",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "3": {
+      "Name": "Existing VectorDB (15432 / vectordb)",
+      "Group": "07 - Existing services",
+      "Host": "127.0.0.1",
+      "Port": 15432,
+      "MaintenanceDB": "vectordb",
+      "Username": "vectadmin",
+      "SSLMode": "prefer"
+    }
+  }
+}

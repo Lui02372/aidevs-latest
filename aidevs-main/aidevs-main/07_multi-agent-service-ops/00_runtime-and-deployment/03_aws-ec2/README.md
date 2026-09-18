@@ -1,5 +1,7 @@
 # 03 Simple AWS Deployment
 
+> **Mermaid 상세 학습:** [docs/Deatil.md](./docs/Deatil.md) — 파일 역할, 이미지·컨테이너, 실행 위치와 CI/CD 흐름.
+
 로컬에서 검증한 Docker Compose Application을 AWS EC2 한 대에서 실행하는 공통 절차를
 배웁니다. AWS 서비스를 많이 배우는 단계가 아니라 **같은 Container 구성이 다른 컴퓨터에서도
 실행되는지** 확인하고, 이후 GitHub Actions 자동 배포에 필요한 서버 기반을 준비하는 단계입니다.
@@ -60,4 +62,3 @@ Ollama는 기본 실행에서 제외하고 OpenAI 또는 Gemini API를 사용합
 [ ] LLM API Key를 소스에 넣지 않았다.
 [ ] 종료 전에 EC2·EBS·Security Group 정리 시간을 확보했다.
 ```
-

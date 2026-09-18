@@ -1,5 +1,11 @@
 # 00 Runtime and Deployment
 
+> **JSON Launcher:** [launcher.cmd](./launcher.cmd)를 더블클릭하세요. 실행 목록은 [launcher.json](./launcher.json), 사용법은 [LAUNCHER_GUIDE.md](./LAUNCHER_GUIDE.md)에 있습니다.
+> **GitHub Actions 처음 시작:** [02/doc/ConnectGuide.md](./02_github-actions-ci/doc/ConnectGuide.md) → [04/doc/ConnectGuide.md](./04_github-actions-aws-deploy/doc/ConnectGuide.md). 각 단계의 `doc/ConnectGuide.md`에 PowerShell·DB·EC2 연결을 정리했습니다.
+
+> **00~06 통합 실습:** [07 로컬→CI/CD→EC2·VPC→OpenAI·Gemini·MCP](./07_integrated-bedrock-mcp/README.md)
+> 하나의 프로젝트로 학습하려면 07에서 시작하세요. 기존 00~06은 주제별 참고 자료입니다.
+
 Multi AI Agent와 Orchestration을 배우기 전 실행 환경을 준비하고, 09에서 사용할 배포
 개념을 미리 찾아볼 수 있는 안내서입니다. 첫날에는 Redis·PostgreSQL·Ollama만 준비하고
 Docker Image·AWS·CI/CD는 서비스 구조를 이해한 뒤 09에서 진행합니다.
@@ -51,6 +57,7 @@ LLM 요청 실패 → Provider Key·Model·Ollama 상태
 | 04 | `04_github-actions-aws-deploy` | 09 이후 선택 가능한 EC2 자동 배포 |
 | 05 | `05_weather-mcp-deployment-project` | 실제 Weather MCP를 포함한 최소 CI/CD·AWS 배포 프로젝트 |
 | 06 | `06_weather-mcp-stateful-deployment` | PostgreSQL·Redis 인프라와 Application 배포 분리 |
+| 07 | `07_integrated-bedrock-mcp` | 00~06 통합 + 가상화·VPC·OpenAI·Gemini·MCP resource·skill·OIDC/SSM CD |
 | 참고 | `05_local-or-managed-cloud.md` | 로컬·AWS·관리형 Cloud 경로 비교 |
 | 연결 | `06_to-integrated-operations.md` | 00 Runtime에서 09 통합 운영으로 연결 |
 

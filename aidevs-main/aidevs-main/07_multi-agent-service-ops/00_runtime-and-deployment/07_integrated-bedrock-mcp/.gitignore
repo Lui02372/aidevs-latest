@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.venv/
+.local/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.tar.gz

@@ -1,5 +1,7 @@
 # 01 Simple Multi-LLM Docker Compose
 
+> **Mermaid 상세 학습:** [docs/Deatil.md](./docs/Deatil.md) — 파일 역할, 이미지·컨테이너, 실행 위치와 CI/CD 흐름.
+
 하나의 여행 준비 Chat으로 Frontend와 Backend Container 연결을 배웁니다. Multi-Agent와
 Orchestration은 아직 넣지 않습니다. 현재 수업 PC에는 PostgreSQL·Redis·Ollama Container가
 이미 있으므로 기본 실행에서는 Application Container 두 개만 생성합니다.

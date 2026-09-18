@@ -1,0 +1,11 @@
+# Copy to ~/multi-agent-09/shared/compose.override.yaml on this EC2.
+# Both networks are required: default reaches this app's Redis/MCP; existing-db reaches PostgreSQL.
+services:
+  api:
+    networks: [default, existing-db]
+  worker:
+    networks: [default, existing-db]
+networks:
+  existing-db:
+    external: true
+    name: simple-multi-llm-full-stack_default

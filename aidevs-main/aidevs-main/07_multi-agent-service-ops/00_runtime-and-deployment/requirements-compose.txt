@@ -1,0 +1,8 @@
+-r 01_simple-multi-llm-compose/backend/requirements.txt
+-r 01_simple-multi-llm-compose/frontend/requirements.txt
+-r 01_simple-multi-llm-compose2/backend/requirements.txt
+-r 01_simple-multi-llm-compose2/frontend/requirements.txt
+-r 01_simple-multi-llm-compose3/backend/requirements.txt
+-r 01_simple-multi-llm-compose3/frontend/requirements.txt
+pytest>=8,<10
+python-dotenv>=1,<2

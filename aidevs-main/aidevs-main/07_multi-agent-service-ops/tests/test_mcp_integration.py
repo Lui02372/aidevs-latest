@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 SERVICE_ROOT = ROOT / "08_multi-ai-agent-service"
-FINAL_ROOT = ROOT / "09_integrated-travel-multi-ai-agent"
+FINAL_ROOT = ROOT / "09_integrated-deployment-and-operations"
 sys.path.insert(0, str(SERVICE_ROOT))
 sys.path.insert(0, str(FINAL_ROOT))
 

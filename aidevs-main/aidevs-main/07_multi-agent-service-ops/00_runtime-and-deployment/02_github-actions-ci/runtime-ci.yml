@@ -1,0 +1,57 @@
+name: Runtime Learning CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - 01_simple-multi-llm-compose
+          - 01_simple-multi-llm-compose2
+          - 01_simple-multi-llm-compose3
+          - 05_weather-mcp-deployment-project
+          - 06_weather-mcp-stateful-deployment
+          - 07_integrated-bedrock-mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Locate runtime
+        id: locate
+        shell: bash
+        run: |
+          mapfile -t files < <(git ls-files '*00_runtime-and-deployment/launcher.json')
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "Expected exactly one tracked runtime launcher.json"; exit 1
+          fi
+          echo "runtime=${files[0]%/launcher.json}" >> "$GITHUB_OUTPUT"
+      - name: Install
+        working-directory: ${{ steps.locate.outputs.runtime }}/${{ matrix.project }}
+        run: python -m pip install -r backend/requirements.txt pytest
+      - name: Test
+        working-directory: ${{ steps.locate.outputs.runtime }}/${{ matrix.project }}
+        run: python -m pytest backend -q
+      - name: Compose check and build
+        working-directory: ${{ steps.locate.outputs.runtime }}/${{ matrix.project }}
+        shell: bash
+        run: |
+          if [ -f compose.infrastructure.yml ]; then
+            docker compose -f compose.infrastructure.yml config --quiet
+            docker compose -f compose.application.yml config --quiet
+            docker compose -f compose.application.yml build
+          elif [ -f compose.full-stack.yml ]; then
+            docker compose -f compose.full-stack.yml config --quiet
+            docker compose -f compose.full-stack.yml build
+          else
+            docker compose -f compose.yml config --quiet
+            docker compose -f compose.yml build
+          fi
