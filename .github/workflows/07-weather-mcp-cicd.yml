@@ -1,18 +1,23 @@
+# 05_weather-mcp-deployment-project 전용 CI/CD
+# 푸시·PR마다 테스트 → Compose 문법 검사 → 이미지 3개 빌드
+# main 푸시(또는 수동 실행 시 deploy=true)면 AWS EC2로 배포 후 readiness 확인
 name: 07 Weather MCP CI CD
 
 on:
   push:
     paths:
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/backend/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/frontend/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/mcp_server/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/compose.yml"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/backend/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/frontend/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/mcp_server/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/compose.yml"
+      - ".github/workflows/07-weather-mcp-cicd.yml"
   pull_request:
     paths:
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/backend/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/frontend/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/mcp_server/**"
-      - "07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/compose.yml"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/backend/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/frontend/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/mcp_server/**"
+      - "aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/compose.yml"
+      - ".github/workflows/07-weather-mcp-cicd.yml"
   workflow_dispatch:
     inputs:
       deploy:
@@ -28,12 +33,15 @@ concurrency:
   group: weather-mcp-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  PROJECT_DIR: aidevs-main/aidevs-main/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project
+
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project
+        working-directory: ${{ env.PROJECT_DIR }}
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -41,12 +49,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/backend/requirements.txt
       - name: Install backend test dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r backend/requirements.txt pytest
       - name: Test backend contract with Fake MCP and LLM
-        working-directory: 07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/backend
+        working-directory: ${{ env.PROJECT_DIR }}/backend
         run: python -m pytest test_app.py -q
       - name: Validate Compose
         run: docker compose config --quiet
@@ -79,7 +89,7 @@ jobs:
           AWS_USER: ${{ secrets.AWS_USER }}
         run: |
           ssh "$AWS_USER@$AWS_HOST" 'mkdir -p ~/weather-mcp-deployment'
-          scp -r 07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project/. "$AWS_USER@$AWS_HOST:~/weather-mcp-deployment/"
+          scp -r "$PROJECT_DIR"/. "$AWS_USER@$AWS_HOST:~/weather-mcp-deployment/"
       - name: Deploy and verify readiness
         env:
           AWS_HOST: ${{ secrets.AWS_HOST }}

@@ -17,7 +17,7 @@ st.title("Weather MCP Deployment Project")
 if page == "Weather Agent":
     city = st.text_input("도시", "서울")
     day_label = st.radio("날짜", ["내일", "오늘"], horizontal=True)
-    provider = st.selectbox("Cloud LLM", ["openai", "gemini"])
+    provider = st.selectbox("Cloud LLM", ["gemini", "openai"])
     if st.button("실제 날씨 조회", type="primary", use_container_width=True):
         try:
             response = requests.post(f"{BACKEND_URL}/api/weather", json={"city": city, "day": "tomorrow" if day_label == "내일" else "today", "provider": provider}, timeout=90)
